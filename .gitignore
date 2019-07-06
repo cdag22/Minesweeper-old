@@ -1,0 +1,8 @@
+# MAC OS
+.DS_Store
+
+# Bundle
+bundle.js
+
+# Node_Modules
+node_modules/

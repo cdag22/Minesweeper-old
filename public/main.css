@@ -1,0 +1,109 @@
+/*--------------------------------------------------
+* GLOBAL STYLES
+*-------------------------------------------------*/
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: Helvetica, Sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+/*--------------------------------------------------
+* HEADER
+*-------------------------------------------------*/
+.header {
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0bf0b7, #0ebe89);
+  box-shadow: inset 0 2rem 3rem rgba(0,0,0,0.5);
+}
+
+.header-title {
+  font-size: 4rem;
+  font-weight: 200;
+  color: #f5f5f5;
+  text-shadow: 0 0.125rem 0.125rem rgba(0,0,0,0.5);
+}
+
+/*--------------------------------------------------
+* MAIN
+*-------------------------------------------------*/
+.main-container {
+  height: 75vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+/*--------------------------------------------------
+* MENU
+*-------------------------------------------------*/
+.menu {
+  width: 15rem;
+  height: 4rem;
+  margin-top: 2rem;
+}
+
+.menu-item {
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-title {
+  font-size: 1.5rem;
+  font-weight: 100;
+  margin: 0;
+}
+
+.menu-select {
+  background: #333;
+  color: #f5f5f5;
+  font-size: 1.25rem;
+  height: 2rem;
+  width: 6rem;
+  margin: 0;
+}
+
+/*--------------------------------------------------
+* BOARD
+*-------------------------------------------------*/
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem auto 5rem auto;
+  box-shadow: 0 1rem 8rem rgba(0,0,0,1);
+  background: transparent;
+}
+
+.square {
+  color: #0ebe89;
+  background:#0ebe89;
+  border: 1px solid rgb(95, 95, 95);
+  box-shadow: inset 0 0.5rem 1rem rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square:hover {
+  box-shadow: inset 0 0.5rem 1rem rgba(100,100,100,0.1);
+  background: #0ace9d;
+  color: #0ace9d;
+}
+
+.square .selected {
+  color: #f5f5f5;
+}
