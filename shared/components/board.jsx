@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Board = ({ board, size }) => {
+const Board = ({ board, size, selectSquare, selectedSquares }) => {
 
   let root = Math.sqrt(size);
   let sqSize = size === 9 ? 60 : size === 25 ? 40 : 25;
@@ -9,13 +9,15 @@ const Board = ({ board, size }) => {
 
   return (
     <div className="board" style={{ 'width': `${boardWidth}px` }}>
-      {board.map((square, i) => (
+      {selectedSquares.map((bool, i) => (
         <div
           key={i}
+          data-sqindex={i}
           className="square"
           style={{ 'width': `${sqSize}px`, 'height': `${sqSize}px`, 'fontSize': `${fontSize}px` }}
+          onClick={(e) => (e.preventDefault(), selectSquare(e.target.dataset.sqindex))}
         >
-          {square.isBomb ? 'B' : square.value}
+          {bool ? board[i].isBomb ? 'B' : board[i].value : ''}
         </div>
       ))}
     </div>

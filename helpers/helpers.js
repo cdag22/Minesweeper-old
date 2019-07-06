@@ -51,7 +51,6 @@ const buildBoard = n => {
   let board = [];
   for (let i = 0; i < n; i++) {
     board.push({
-      isShowing: false,
       isBomb: bombs[i] === '1',
       value: 0
     });

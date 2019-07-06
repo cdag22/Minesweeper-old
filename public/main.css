@@ -89,7 +89,7 @@ body {
 }
 
 .square {
-  color: #0ebe89;
+  color: #f5f5f5;
   background:#0ebe89;
   border: 1px solid rgb(95, 95, 95);
   box-shadow: inset 0 0.5rem 1rem rgba(0,0,0,0.3);
@@ -101,9 +101,92 @@ body {
 .square:hover {
   box-shadow: inset 0 0.5rem 1rem rgba(100,100,100,0.1);
   background: #0ace9d;
-  color: #0ace9d;
 }
 
-.square .selected {
+
+/*--------------------------------------------------
+* GAME OVER MODAL
+*-------------------------------------------------*/
+.modal {
+  position: fixed;
+  top: 20;
+  left: 50;
+  z-index: 2;
+  margin: 5rem 0 0 34%;
+  width: 20rem;
+  height: 18rem;
+  color: #0ebe89;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f5f5f5, #e2e2e2);
+}
+
+.modal hr {
+  background: #ccc;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  width: 100%;
+  /* box-shadow: inset 0 1rem 3rem rgba(0,0,0,0.4); */
+}
+
+.modal-header-title {
+  font-size: 2.5rem;
+  font-weight: 200;
+  margin: 1rem;
+}
+
+.modal-header-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.modal-body {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*--------------------------------------------------
+* GAME OVER MODAL Buttons
+*-------------------------------------------------*/
+
+.modal-buttons {
+  width: 75%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btn {
+  width: 5rem;
+  height: 2rem;
   color: #f5f5f5;
+  box-shadow: 0 3rem 3rem rgba(0,0,0,0.4);
+}
+
+
+.btn:hover {
+  box-shadow: 0 2rem 2rem rgba(0,0,0,0.3);
+  color: #333;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.yes-btn {
+  background: #0ebe89;
+}
+
+.no-btn {
+  background: #eb8919;
 }
