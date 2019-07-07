@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Board from './board.jsx';
 import Menu from './menu.jsx';
 import GameOverModal from './gameOverModal.jsx';
-import buildBoard from '../../helpers/helpers.js';
+import helpers from '../../helpers/helpers.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -24,49 +24,65 @@ class App extends React.Component {
     this.handleBoardReset = this.handleBoardReset.bind(this);
   }
 
+  //
+  // INTIALIZE BOARD SIZE 3 x 3 ON LOAD
+  //
   componentDidMount() {
     this.setState({
-      board: buildBoard(9),
+      board: helpers.buildBoard(9),
       selectedSquares: Array.from({ length: 9 }, (x, i) => false),
       bombCount: 3
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.boardSizeIndex != this.state.boardSizeIndex) {
-      this.setState({
-        board: buildBoard(this.state.boardSizes[this.state.boardSizeIndex]),
-        selectedSquares: Array.from({ length: this.state.boardSizes[this.state.boardSizeIndex] }, (x, i) => false),
-        bombCount: Math.sqrt(this.state.boardSizes[this.state.boardSizeIndex]),
-      });
-    }
-  }
-
   handleBoardSizeChange(index) {
     this.setState({
       boardSizeIndex: index,
+      board: helpers.buildBoard(this.state.boardSizes[index]),
+      selectedSquares: Array.from({ length: this.state.boardSizes[index] }, (x, i) => false),
+      bombCount: Math.sqrt(this.state.boardSizes[index]),
     });
   }
 
-  handleSquareClick(index) {
-    this.setState(state => {
-      let selected = state.selectedSquares;
-      selected[index] = true;
-      let hasWon = selected.filter(bool => !bool).length === state.bombCount;
-      let isGameOver = state.board[index].isBomb || hasWon;
+  handleSquareClick(event) {
+    event.preventDefault();
 
-      return {
-        selectedSquares: selected,
-        isGameOver: isGameOver,
-        hasWon: hasWon,
-      }
-    });
+    //
+    // RIGHT CLICK => FLAG SQUARE
+    //
+    if (event.type === 'contextmenu') {
+      // TODO: FLAG SQUARE ON RIGHT CLICK
+    } else {
+      //
+      // LEFT CLICK => CALCULATE IF BOMB
+      //
+      let index = event.target.dataset.sqindex;
+
+      this.setState(state => {
+        let selected = state.selectedSquares;
+        if (state.board[index].value === 0) {
+          let indicies = helpers.findAllZeroes(state.board, index);
+          for (let i of indicies) {
+            selected[i] = true;
+          }
+        } else {
+          selected[index] = true;
+        }
+        let hasWon = selected.filter(bool => !bool).length === state.bombCount && !state.board[index].isBomb;
+        let isGameOver = state.board[index].isBomb || hasWon;
+        return {
+          selectedSquares: selected,
+          isGameOver: isGameOver,
+          hasWon: hasWon,
+        }
+      });
+    }
   }
 
   handleBoardReset(wantsToPlayAgain) {
     if (wantsToPlayAgain) {
       this.setState({
-        board: buildBoard(this.state.boardSizes[this.state.boardSizeIndex]),
+        board: helpers.buildBoard(this.state.boardSizes[this.state.boardSizeIndex]),
         selectedSquares: Array.from({ length: this.state.boardSizes[this.state.boardSizeIndex] }, (x, i) => false),
         isGameOver: false,
         hasWon: false,

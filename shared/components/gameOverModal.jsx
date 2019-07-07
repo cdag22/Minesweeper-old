@@ -5,8 +5,8 @@ const GameOverModal = ({ isGameOver, hasWon, handleBoardReset }) => {
   return isGameOver ? (
     <div className="modal">
       <header className="modal-header">
-        <h1 className="modal-header-title">Game Over</h1>
-        <h2 className="modal-header-subtitle">{hasWon ? 'Congratulations you win!' : 'Sorry you lose'}</h2>
+        <h1 className="modal-header-subtitle">Game Over</h1>
+        <h2 className="modal-header-title">{hasWon ? 'Congratulations you win!' : 'Sorry you lose'}</h2>
       </header>
       <hr />
       <main className="modal-body">

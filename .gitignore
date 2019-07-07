@@ -6,3 +6,6 @@ bundle.js
 
 # Node_Modules
 node_modules/
+
+# Environment Variables
+.env

@@ -15,7 +15,7 @@ const Board = ({ board, size, selectSquare, selectedSquares }) => {
           data-sqindex={i}
           className="square"
           style={{ 'width': `${sqSize}px`, 'height': `${sqSize}px`, 'fontSize': `${fontSize}px` }}
-          onClick={(e) => (e.preventDefault(), selectSquare(e.target.dataset.sqindex))}
+          onClick={(e) => selectSquare(e)}
         >
           {bool ? board[i].isBomb ? 'B' : board[i].value : ''}
         </div>
