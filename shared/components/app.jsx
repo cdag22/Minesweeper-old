@@ -63,7 +63,7 @@ class App extends React.Component {
         } else {
           selected[index] = 1;
         }
-        let hasWon = selected.filter(bool => bool === 0).length === state.bombCount && !state.board[index].isBomb;
+        let hasWon = selected.filter(bool => bool !== 1).length === state.bombCount && !state.board[index].isBomb;
         let isGameOver = state.board[index].isBomb || hasWon;
         return {
           selectedSquares: selected,
