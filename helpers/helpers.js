@@ -1,4 +1,21 @@
 //---------------------------------------------------------------//
+// BUILD BOMBS ARRAY
+//---------------------------------------------------------------//
+//
+const buildBombs = n => {
+  let root = Math.sqrt(n)
+  let bombs = ('1').repeat(root);
+  let randomized = [];
+  let getRandom = arr => arr.splice(Math.floor(Math.random() * arr.length), 1)[0];
+
+  bombs = bombs.padStart(n, '0').split('')
+  while (bombs.length) {
+    randomized.push(getRandom(bombs));
+  }
+  return randomized;
+};
+
+//---------------------------------------------------------------//
 // DETERMINE NUMBER OF BOMBS NEARBY FOR EACH SQUARE
 //---------------------------------------------------------------//
 //
@@ -37,23 +54,6 @@ const partitionBoard = (board, n) => {
 };
 
 //---------------------------------------------------------------//
-// BUILD BOMBS ARRAY
-//---------------------------------------------------------------//
-//
-const buildBombs = n => {
-  let root = Math.sqrt(n)
-  let bombs = ('1').repeat(root);
-  let randomized = [];
-  let getRandom = arr => arr.splice(Math.floor(Math.random() * arr.length), 1)[0];
-
-  bombs = bombs.padStart(n, '0').split('')
-  while (bombs.length) {
-    randomized.push(getRandom(bombs));
-  }
-  return randomized;
-};
-
-//---------------------------------------------------------------//
 // BUILD BOARD
 //---------------------------------------------------------------//
 //
@@ -71,6 +71,8 @@ const buildBoard = n => {
 
   return board;
 };
+
+//================================================================
 
 //---------------------------------------------------------------//
 // FIND ALL CONTIGUOUS ZEROES IF CURRENT SQUARE CLICKED IS A ZERO

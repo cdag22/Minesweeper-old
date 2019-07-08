@@ -109,6 +109,11 @@ body {
   background: #0ace9d;
 }
 
+.fas {
+  color: #f5f5f5;
+  font-size: .9rem;
+}
+
 
 /*--------------------------------------------------
 * GAME OVER MODAL

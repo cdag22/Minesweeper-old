@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Board = ({ board, size, selectSquare, selectedSquares }) => {
-
+const Board = ({ board, size, selectSquare, flagSquare, selectedSquares }) => {
   let root = Math.sqrt(size);
   let sqSize = size === 9 ? 60 : size === 25 ? 40 : 25;
   let fontSize = size === 9 ? 26 : size === 25 ? 18 : 16;
@@ -16,8 +15,10 @@ const Board = ({ board, size, selectSquare, selectedSquares }) => {
           className="square"
           style={{ 'width': `${sqSize}px`, 'height': `${sqSize}px`, 'fontSize': `${fontSize}px` }}
           onClick={(e) => selectSquare(e)}
+          onContextMenu={(e) => flagSquare(e)}
         >
-          {bool ? board[i].isBomb ? 'B' : board[i].value : ''}
+          {bool === 0 ? '' : bool === 1 ? board[i].isBomb ? 'B' : board[i].value : 'F'}
+
         </div>
       ))}
     </div>

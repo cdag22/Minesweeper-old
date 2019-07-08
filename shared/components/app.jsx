@@ -21,16 +21,17 @@ class App extends React.Component {
 
     this.handleBoardSizeChange = this.handleBoardSizeChange.bind(this);
     this.handleSquareClick = this.handleSquareClick.bind(this);
+    this.handleFlagSquare = this.handleFlagSquare.bind(this);
     this.handleBoardReset = this.handleBoardReset.bind(this);
   }
 
-  //
-  // INTIALIZE BOARD SIZE 3 x 3 ON LOAD
-  //
   componentDidMount() {
+    //
+    // INTIALIZE BOARD SIZE 3 x 3 ON LOAD
+    //
     this.setState({
       board: helpers.buildBoard(9),
-      selectedSquares: Array.from({ length: 9 }, (x, i) => false),
+      selectedSquares: Array.from({ length: 9 }, (x, i) => 0),
       bombCount: 3
     })
   }
@@ -39,51 +40,68 @@ class App extends React.Component {
     this.setState({
       boardSizeIndex: index,
       board: helpers.buildBoard(this.state.boardSizes[index]),
-      selectedSquares: Array.from({ length: this.state.boardSizes[index] }, (x, i) => false),
+      selectedSquares: Array.from({ length: this.state.boardSizes[index] }, (x, i) => 0),
       bombCount: Math.sqrt(this.state.boardSizes[index]),
     });
   }
 
   handleSquareClick(event) {
     event.preventDefault();
+    let index = event.target.dataset.sqindex;
 
     //
-    // RIGHT CLICK => FLAG SQUARE
+    // LEFT CLICK => CALCULATE IF BOMB
     //
-    if (event.type === 'contextmenu') {
-      // TODO: FLAG SQUARE ON RIGHT CLICK
-    } else {
-      //
-      // LEFT CLICK => CALCULATE IF BOMB
-      //
-      let index = event.target.dataset.sqindex;
-
-      this.setState(state => {
-        let selected = state.selectedSquares;
+    this.setState(state => {
+      let selected = state.selectedSquares;
+      if (state.board[index] && (/[B0-9]/).test(state.board[index].value) && selected[index] !== 2) {
         if (state.board[index].value === 0) {
           let indicies = helpers.findAllZeroes(state.board, index);
           for (let i of indicies) {
-            selected[i] = true;
+            selected[i] = 1;
           }
         } else {
-          selected[index] = true;
+          selected[index] = 1;
         }
-        let hasWon = selected.filter(bool => !bool).length === state.bombCount && !state.board[index].isBomb;
+        let hasWon = selected.filter(bool => bool === 0).length === state.bombCount && !state.board[index].isBomb;
         let isGameOver = state.board[index].isBomb || hasWon;
         return {
           selectedSquares: selected,
           isGameOver: isGameOver,
           hasWon: hasWon,
         }
-      });
-    }
+      } else {
+        return {
+          selectedSquares: selected,
+        };
+      }
+    });
+  }
+
+  handleFlagSquare(event) {
+    event.preventDefault();
+    let index = event.target.dataset.sqindex;
+    //
+    // RIGHT CLICK => FLAG SQUARE
+    //
+    this.setState(state => {
+      let selected = state.selectedSquares;
+      if (selected[index] !== 0) {
+        selected[index] = 0;
+      } else {
+        selected[index] = 2;
+      }
+      return {
+        selectedSquares: selected,
+      }
+    });
   }
 
   handleBoardReset(wantsToPlayAgain) {
     if (wantsToPlayAgain) {
       this.setState({
         board: helpers.buildBoard(this.state.boardSizes[this.state.boardSizeIndex]),
-        selectedSquares: Array.from({ length: this.state.boardSizes[this.state.boardSizeIndex] }, (x, i) => false),
+        selectedSquares: Array.from({ length: this.state.boardSizes[this.state.boardSizeIndex] }, (x, i) => 0),
         isGameOver: false,
         hasWon: false,
       });
@@ -116,9 +134,10 @@ class App extends React.Component {
           <hr />
           <Board
             board={this.state.board}
-            size={this.state.boardSizes[this.state.boardSizeIndex]}
-            selectSquare={this.handleSquareClick}
             selectedSquares={this.state.selectedSquares}
+            size={this.state.boardSizes[this.state.boardSizeIndex]}
+            flagSquare={this.handleFlagSquare}
+            selectSquare={this.handleSquareClick}
           />
         </main>
       </div>
